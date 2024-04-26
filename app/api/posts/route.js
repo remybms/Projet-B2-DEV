@@ -13,7 +13,7 @@ export async function GET(req, res) {
     });
   }
 
-  const items = await db.all("SELECT * FROM posts");
+  const items = await db.all("SELECT posts.*, users.username FROM posts INNER JOIN users ON posts.idUser = users.id");
 
   return NextResponse.json(items, { status: 200 });
 }

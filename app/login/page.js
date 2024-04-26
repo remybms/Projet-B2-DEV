@@ -3,11 +3,13 @@
 import Header from "@/components/header";
 import React from "react";
 import { hashPassword } from "@/components/password";
+import { useRouter } from "next/navigation";
 
 export default function Login(){
 
     const [mail, setMail] = React.useState('')
     const [password, setPassword] = React.useState('')
+    const router = useRouter()
 
     async function sendData(e) {
         e.preventDefault();
@@ -25,6 +27,9 @@ export default function Login(){
             });
 
             data = await response.json();
+            if(data.message == "ok"){
+                router.push('/')
+            }
         } catch (error) {
             console.error('Erreur lors de l\'envoi des données à l\'API :', error);
         }

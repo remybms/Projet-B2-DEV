@@ -24,6 +24,7 @@ export default function Home() {
 
       data = await response.json();
       console.log(data);
+      location.reload()
     } catch (error) {
       console.error('Erreur lors de l\'envoi des données à l\'API :', error);
     }
@@ -50,8 +51,9 @@ export default function Home() {
         <input type="text" placeholder="content" onChange={(e) => setContent(e.target.value)} />
         <button type="submit">envoyer</button>
       </form>
-    {data.map(item => (
-      <div>{item.content}</div>
+    {data.map(item => (      
+      <><div>{item.username} dit :</div>
+      <div>{item.content}</div></>
     ))}
     </main>
   );
