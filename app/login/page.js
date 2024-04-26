@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import React from "react";
 import { hashPassword } from "@/components/password";
 import { useRouter } from "next/navigation";
+import { saveTokenToLocalStorage } from "@/utils/auth";
 
 export default function Login(){
 
@@ -28,6 +29,7 @@ export default function Login(){
 
             data = await response.json();
             if(data.message == "ok"){
+                saveTokenToLocalStorage(data.token);
                 router.push('/')
             }
         } catch (error) {

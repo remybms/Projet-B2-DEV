@@ -36,5 +36,5 @@ export async function POST(req, res) {
       return NextResponse.json({ error: err.message }, { status: 500 });
     }
   })
-  return NextResponse.json({ message: 'Données insérées avec succès' }, { status: 200 });
+  return NextResponse.json({ message: 'ok' }, { status: 200 });
 }
