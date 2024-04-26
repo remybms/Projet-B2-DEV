@@ -29,10 +29,8 @@ export async function POST(req, res) {
 
   db.run('INSERT INTO posts (idUser, content) VALUES (?, ?)', [data.idUser, data.content], (err) => {
     if (err) {
-      // En cas d'erreur, renvoyer un code d'erreur 500
       return NextResponse.json({ error: err.message }, { status: 500 });
     }
   })
-  // En cas de succès, renvoyer un code de réussite 200
   return NextResponse.json({ message: 'Données insérées avec succès' }, { status: 200 });
 }
