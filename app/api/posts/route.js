@@ -1,6 +1,7 @@
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import { NextRequest, NextResponse } from "next/server";
+import {Moderation} from "@/components/moderation"
 
 let db
 
@@ -26,6 +27,9 @@ export async function POST(req, res) {
   }
 
   const data = await req.json();
+  if(Moderation(data.content) == "Not good"){
+    return NextResponse.json({ error: "Mot interdit" }, { status: 500 });
+  }
 
   db.run('INSERT INTO posts (idUser, content) VALUES (?, ?)', [data.idUser, data.content], (err) => {
     if (err) {
