@@ -1,19 +1,26 @@
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import { NextRequest, NextResponse } from "next/server";
-import {Moderation} from "@/components/moderation"
+import {Moderation} from "@/utils/moderation"
 
 let db
 
 export async function GET(req, res) {
+  const { searchParams } = new URL(req.url)
+  const id = searchParams.get('id')
   if (!db) {
     db = await open({
       filename: "./collection.db",
       driver: sqlite3.Database,
     });
   }
+  var items
+  if(id !== null){
+    items = await db.all("SELECT posts.*, users.username FROM posts INNER JOIN users ON posts.idUser = users.id WHERE posts.id = ?", id);
+  } else {
+    items = await db.all("SELECT posts.*, users.username FROM posts INNER JOIN users ON posts.idUser = users.id");
 
-  const items = await db.all("SELECT posts.*, users.username FROM posts INNER JOIN users ON posts.idUser = users.id");
+  }
 
   return NextResponse.json(items, { status: 200 });
 }

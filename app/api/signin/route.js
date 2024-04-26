@@ -1,6 +1,7 @@
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import { NextResponse } from "next/server";
+import { generateToken } from "@/utils/auth";
 
 let db
 
@@ -25,5 +26,7 @@ export async function POST(req, res) {
             return NextResponse.json({ error: err.message }, { status: 500 });
         }
     })
-    return NextResponse.json({ message: 'ok' }, { status: 200 });
+    const newUser = await db.get("SELECT * FROM users WHERE mail = ?", data.mail);
+    const token = generateToken(newUser);
+    return NextResponse.json({ message: "ok", token: token }, { status: 200 });
 }

@@ -2,7 +2,7 @@
 
 import Header from "@/components/header";
 import React from "react";
-import { hashPassword } from "@/components/password";
+import { hashPassword } from "@/utils/password";
 import { useRouter } from "next/navigation";
 import { saveTokenToLocalStorage } from "@/utils/auth";
 

@@ -1,9 +1,10 @@
 "use client"
 
 import Header from "@/components/header"
-import { hashPassword } from "@/components/password";
+import { hashPassword } from "@/utils/password";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { saveTokenToLocalStorage } from "@/utils/auth";
 
 export default function Signin() {
 
@@ -35,6 +36,7 @@ export default function Signin() {
 
             data = await response.json();
             if(data.message == "ok"){
+                saveTokenToLocalStorage(data.token);
                 router.push('/')
             }
         } catch (error) {

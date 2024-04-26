@@ -1,7 +1,7 @@
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import { NextRequest, NextResponse } from "next/server";
-import { Moderation } from "@/components/moderation";
+import { Moderation } from "@/utils/moderation";
 
 let db
 
@@ -13,7 +13,8 @@ export async function GET(req, res) {
     });
   }
 
-  const items = await db.all("SELECT * FROM comments");
+
+  const items = await db.all("SELECT comments.*, users.username FROM comments INNER JOIN users ON comments.idUser = users.id");
 
   return NextResponse.json(items, { status: 200 });
 }
@@ -37,5 +38,5 @@ export async function POST(req, res) {
       return NextResponse.json({ error: err.message }, { status: 500 });
     }
   })
-  return NextResponse.json({ message: 'Données insérées avec succès' }, { status: 200 });
+  return NextResponse.json({ message: 'ok' }, { status: 200 });
 }

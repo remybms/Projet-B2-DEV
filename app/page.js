@@ -1,9 +1,8 @@
 "use client"
 import Header from "@/components/header";
 import React from "react";
-import { getTokenFromLocalStorage, removeTokenFromLocalStorage } from "@/utils/auth";
+import { getTokenFromLocalStorage, removeTokenFromLocalStorage, getUserFromToken } from "@/utils/auth";
 import { useRouter } from "next/navigation";
-import jwt from 'jsonwebtoken';
 
 
 export default function Home() {
@@ -29,16 +28,16 @@ export default function Home() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          "idUser": getUserIdFromToken(token),
+          "idUser": getUserFromToken(token).id,
           "content": content,
         }),
       });
 
       data = await response.json();
-      if(data.message == "ok"){
+      if (data.message == "ok") {
         location.reload()
       }
-      
+
     } catch (error) {
       console.error('Erreur lors de l\'envoi des données à l\'API :', error);
     }
@@ -58,6 +57,10 @@ export default function Home() {
     fetchData();
   }, []);
 
+  const handleClick = (item) => {
+    window.location.href = `/post?id=${item.id}`;
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center bg-white text-black">
       <Header />
@@ -67,14 +70,14 @@ export default function Home() {
         <button type="submit">envoyer</button>
       </form>
       {data.map(item => (
-        <><div>{item.username} dit :</div>
-          <div>{item.content}</div></>
+        <><div onClick={() => handleClick(item)}>
+          <div>{item.username} dit :</div>
+          <div>{item.content}</div>
+        </div>
+        </>
       ))}
     </main>
   );
 }
 
-const getUserIdFromToken = (token) => {
-  const decodedToken = jwt.decode(token);
-  return decodedToken.id;
-};
+

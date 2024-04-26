@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 export function Moderation(message) {
-    const contenuFichier = fs.readFileSync("/home/remybms/projet-b2-dev/components/moderation.txt", 'utf-8');
+    const contenuFichier = fs.readFileSync("/home/remybms/projet-b2-dev/utils/moderation.txt", 'utf-8');
 
     var motsPhrase = message.toLowerCase().split(/\s+/);
     var motsFichier = contenuFichier.toLowerCase().split(/\s+/);
