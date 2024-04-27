@@ -6,7 +6,7 @@ export default function Header() {
     const token = getTokenFromLocalStorage()
 
     return (
-        <main className="flex text-black p-10 mb-5 justify-around w-screen">
+        <main className="flex text-black p-10 mb-5 justify-around max-w-screen">
             <Link href="/">Forum</Link>
             <Link href="/F1">Formule 1</Link>
             {token == null ?
