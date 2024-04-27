@@ -10,7 +10,7 @@ export const getTokenFromLocalStorage = () => {
 
 export const generateToken = (user) => {
     return jwt.sign({ id: user.id, email: user.email, username: user.username, name: user.name, surname: user.surname }, process.env.JWT_SECRET, {
-        expiresIn: '1h' // Durée de validité du token
+        expiresIn: '1h'
     });
 };
 

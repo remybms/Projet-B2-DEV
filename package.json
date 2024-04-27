@@ -14,6 +14,7 @@
     "next": "14.2.2",
     "react": "^18",
     "react-dom": "^18",
+    "react-toastify": "^10.0.5",
     "request": "^2.88.2",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"

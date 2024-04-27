@@ -3,6 +3,8 @@ import Header from "@/components/header";
 import React from "react";
 import { getTokenFromLocalStorage, removeTokenFromLocalStorage, getUserFromToken } from "@/utils/auth";
 import { useRouter } from "next/navigation";
+import { Toast, ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Home() {
@@ -36,6 +38,8 @@ export default function Home() {
       data = await response.json();
       if (data.message == "ok") {
         location.reload()
+      } else if (data.error == "Mot interdit") {
+        toast.error("Votre commentaire contient un ou plusieurs mots offensants")
       }
 
     } catch (error) {
@@ -62,20 +66,25 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-white text-black">
+    <main className="min-h-screen bg-white text-black">
+      <ToastContainer />
       <Header />
-      <button onClick={removeTokenFromLocalStorage}>Se déconnecter</button>
-      <form onSubmit={sendData}>
-        <input type="text" placeholder="content" onChange={(e) => setContent(e.target.value)} />
-        <button type="submit">envoyer</button>
-      </form>
-      {data.map(item => (
-        <><div onClick={() => handleClick(item)}>
-          <div>{item.username} dit :</div>
-          <div>{item.content}</div>
-        </div>
-        </>
-      ))}
+      <div className="space-y-5 m-5">
+        <button onClick={removeTokenFromLocalStorage}>Se déconnecter</button>
+        <form onSubmit={sendData} className="flex flex-col">
+          <label for="content">Ajouter un nouveau message :</label>
+          <input type="text" name="content" id="content" placeholder="Tapez ici..." onChange={(e) => setContent(e.target.value)} className="p-5 border-4 rounded-lg"/>
+          <button type="submit" className="m-2">envoyer</button>
+        </form>
+        {data.map(item => (
+          <><div onClick={() => handleClick(item)}>
+            <div>{item.username} dit :</div>
+            <div>{item.content}</div>
+          </div>
+          </>
+        ))}
+      </div>
+
     </main>
   );
 }

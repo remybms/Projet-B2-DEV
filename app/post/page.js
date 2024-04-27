@@ -2,6 +2,9 @@
 
 import React from "react";
 import { getTokenFromLocalStorage, getUserFromToken } from "@/utils/auth";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import Header from "@/components/header";
 
 export default function Post() {
 
@@ -25,7 +28,7 @@ export default function Post() {
             }
         };
         const post = async () => {
-             try {
+            try {
                 const postReponse = await fetch(`/api/posts?id=${id}`);
                 const postData = await postReponse.json();
                 setPost(postData);
@@ -57,6 +60,8 @@ export default function Post() {
             data = await response.json();
             if (data.message == "ok") {
                 location.reload()
+            } else if (data.error == "Mot interdit") {
+                toast.error("Votre commentaire contient un ou plusieurs mots offensants")
             }
 
         } catch (error) {
@@ -66,20 +71,32 @@ export default function Post() {
 
     return (
         <main className="min-h-screen bg-white text-black">
-            <form onSubmit={sendData}>
-                <input type="text" placeholder="add a comment" onChange={(e) => setContent(e.target.value)} />
-                <button type="submit">envoyer</button>
-            </form>
-            {post.map(item => (
-                <><h1>{item.username} a dit :</h1>
-                <h1>{item.content}</h1></>
-            ))}
-            {data.map(item => (
-                <>
-                    <h2>{item.username} répond :</h2>
-                    <h2>{item.content}</h2>
-                </>
-            ))}
+            <ToastContainer />
+            <Header />
+            <div className="space-y-5 m-5">
+                <form onSubmit={sendData} className="flex flex-col">
+                    <label for="content">Ajouter un nouveau message :</label>
+                    <input type="text" name="content" id="content" placeholder="Tapez ici..." onChange={(e) => setContent(e.target.value)} className="p-5 border-4 rounded-lg" />
+                    <button type="submit" className="m-2">envoyer</button>
+                </form>
+                {post.map(item => (
+                    <>
+                        <div>
+                            <h1>{item.username} a dit :</h1>
+                            <h1>{item.content}</h1>
+                        </div>
+                    </>
+                ))}
+                {data.map(item => (
+                    <>
+                        <div>
+                            <h2>{item.username} répond :</h2>
+                            <h2>{item.content}</h2>
+                        </div>
+                    </>
+                ))}
+            </div>
+
         </main>
     )
 }
