@@ -10,7 +10,7 @@ export async function GET(req, res) {
   const id = searchParams.get('id')
   if (!db) {
     db = await open({
-      filename: "./collection.db",
+      filename: "./forum.db",
       driver: sqlite3.Database,
     });
   }

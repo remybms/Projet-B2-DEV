@@ -8,7 +8,7 @@ let db;
 export async function POST(req, res) {
     if (!db) {
         db = await open({
-            filename: "./collection.db",
+            filename: "./forum.db",
             driver: sqlite3.Database,
         });
     }
