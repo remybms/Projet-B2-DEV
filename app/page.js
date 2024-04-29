@@ -77,7 +77,7 @@ export default function Home() {
           <button type="submit" className="m-2">envoyer</button>
         </form>
         {data.map(item => (
-          <><div onClick={() => handleClick(item)}>
+          <><div onClick={() => handleClick(item)} className="border-4 w-fit p-3 rounded-lg border-black">
             <div>{item.username} dit :</div>
             <div>{item.content}</div>
           </div>

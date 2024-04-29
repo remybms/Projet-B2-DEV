@@ -75,13 +75,13 @@ export default function Post() {
             <Header />
             <div className="space-y-5 m-5">
                 <form onSubmit={sendData} className="flex flex-col">
-                    <label for="content">Ajouter un nouveau message :</label>
+                    <label for="content">Ajouter un nouveau commentaire :</label>
                     <input type="text" name="content" id="content" placeholder="Tapez ici..." onChange={(e) => setContent(e.target.value)} className="p-5 border-4 rounded-lg" />
                     <button type="submit" className="m-2">envoyer</button>
                 </form>
                 {post.map(item => (
                     <>
-                        <div>
+                        <div className="text-3xl">
                             <h1>{item.username} a dit :</h1>
                             <h1>{item.content}</h1>
                         </div>
@@ -89,7 +89,7 @@ export default function Post() {
                 ))}
                 {data.map(item => (
                     <>
-                        <div>
+                        <div className="border-4 w-fit p-3 rounded-lg border-black">
                             <h2>{item.username} répond :</h2>
                             <h2>{item.content}</h2>
                         </div>
