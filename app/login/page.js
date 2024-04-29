@@ -48,8 +48,8 @@ export default function Login(){
             <ToastContainer />
             <Header/>
             <form onSubmit={sendData} className="flex flex-col w-fit space-y-5 m-5">
-                <input type="email" placeholder="Adresse e-mail" onChange={(e) => setMail(e.target.value)} className="p-2 border-4 rounded-lg" />
-                <input type="password" placeholder="Mot de passe" onChange={(e) => setPassword(e.target.value)} className="p-2 border-4 rounded-lg" />
+                <input type="email" placeholder="Adresse e-mail" onChange={(e) => setMail(e.target.value)} className="p-2 border-4 rounded-lg" required />
+                <input type="password" placeholder="Mot de passe" onChange={(e) => setPassword(e.target.value)} className="p-2 border-4 rounded-lg" required />
                 <button type="submit">Se connecter</button>
             </form>
 

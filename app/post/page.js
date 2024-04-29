@@ -76,7 +76,7 @@ export default function Post() {
             <div className="space-y-5 m-5">
                 <form onSubmit={sendData} className="flex flex-col">
                     <label for="content">Ajouter un nouveau commentaire :</label>
-                    <input type="text" name="content" id="content" placeholder="Tapez ici..." onChange={(e) => setContent(e.target.value)} className="p-5 border-4 rounded-lg" />
+                    <input type="text" name="content" id="content" placeholder="Tapez ici..." onChange={(e) => setContent(e.target.value)} className="p-5 border-4 rounded-lg" required/>
                     <button type="submit" className="m-2">envoyer</button>
                 </form>
                 {post.map(item => (

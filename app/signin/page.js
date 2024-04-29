@@ -53,11 +53,11 @@ export default function Signin() {
             <ToastContainer />
             <Header />
             <form onSubmit={sendData} className="flex flex-col w-fit space-y-5 m-5">
-                <input type="text" placeholder="Pseudo" onChange={(e) => setUsername(e.target.value)} className="p-2 border-4 rounded-lg" />
-                <input type="text" placeholder="Prénom" onChange={(e) => setName(e.target.value)} className="p-2 border-4 rounded-lg" />
-                <input type="text" placeholder="Nom" onChange={(e) => setSurname(e.target.value)} className="p-2 border-4 rounded-lg" />
-                <input type="email" placeholder="Adresse e-mail" onChange={(e) => setMail(e.target.value)} className="p-2 border-4 rounded-lg" />
-                <input type="password" placeholder="Mot de passe" onChange={(e) => setPassword(e.target.value)} className="p-2 border-4 rounded-lg" />
+                <input type="text" placeholder="Pseudo" onChange={(e) => setUsername(e.target.value)} className="p-2 border-4 rounded-lg" required/>
+                <input type="text" placeholder="Prénom" onChange={(e) => setName(e.target.value)} className="p-2 border-4 rounded-lg" required/>
+                <input type="text" placeholder="Nom" onChange={(e) => setSurname(e.target.value)} className="p-2 border-4 rounded-lg" required/>
+                <input type="email" placeholder="Adresse e-mail" onChange={(e) => setMail(e.target.value)} className="p-2 border-4 rounded-lg" required/>
+                <input type="password" placeholder="Mot de passe" onChange={(e) => setPassword(e.target.value)} className="p-2 border-4 rounded-lg" required/>
                 <button type="submit">S'inscrire</button>
             </form>
         </main>
