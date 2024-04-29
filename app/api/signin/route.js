@@ -15,10 +15,10 @@ export async function POST(req, res) {
 
     const data = await req.json();
 
-    const existingUser = await db.get("SELECT username FROM users WHERE mail = ?", data.mail);
+    const existingUser = await db.get("SELECT username FROM users WHERE mail = ? OR username = ?", data.mail, data.username);
 
     if (existingUser) {
-        return NextResponse.json({ error: "Utilisateur déjà présent" }, { status: 404 });
+        return NextResponse.json({ error: "Utilisateur déjà présent" }, { status: 500 });
     }
 
     db.run('INSERT INTO users (username, name, surname, mail, password) VALUES (?, ?, ?, ?, ?)', [data.username, data.name, data.surname, data.mail, data.password], (err) => {
