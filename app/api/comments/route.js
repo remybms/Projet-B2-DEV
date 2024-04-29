@@ -6,6 +6,8 @@ import { Moderation } from "@/utils/moderation";
 let db
 
 export async function GET(req, res) {
+  const { searchParams } = new URL(req.url)
+  const id = searchParams.get('idPost')
   if (!db) {
     db = await open({
       filename: "./forum.db",
@@ -13,8 +15,13 @@ export async function GET(req, res) {
     });
   }
 
+  var items
 
-  const items = await db.all("SELECT comments.*, users.username FROM comments INNER JOIN users ON comments.idUser = users.id");
+  if(id !== null){
+    items = await db.all("SELECT comments.*, users.username FROM comments INNER JOIN users ON comments.idUser = users.id WHERE idPost = ?", id);
+  } else {
+    items = await db.all("SELECT comments.*, users.username FROM comments INNER JOIN users ON comments.idUser = users.id");
+  }
 
   return NextResponse.json(items, { status: 200 });
 }
