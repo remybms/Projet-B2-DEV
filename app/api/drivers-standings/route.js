@@ -8,7 +8,7 @@ export async function GET() {
         },
     })
 
-    const teams = await res.json()
+    const drivers = await res.json()
 
-    return Response.json({ teams })
+    return Response.json({ drivers })
 }

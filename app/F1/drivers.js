@@ -12,7 +12,7 @@ export default function Drivers() {
             try {
                 const response = await fetch('/api/drivers-standings');
                 const apiData = await response.json();
-                setData(apiData.teams.response);
+                setData(apiData.drivers.response);
             } catch (error) {
                 console.error('Erreur lors de la récupération des données de l\'API', error);
             }
